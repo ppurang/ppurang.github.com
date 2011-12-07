@@ -1,0 +1,153 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>Scala for the uninitiated</title>
+        <link href="assets/css/show.css" type="text/css" rel="stylesheet" />
+        <link href="assets/css/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/show.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1323290609528" type="text/css" rel="stylesheet" />
+      <script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+      </head>
+      <body>
+        <div id="slides">
+          <div id="reel">
+            <div class="content" id="slide-0">
+       <div class="container"><h1>Scala for the un-initiated</h1><br/>
+<h2>Piyush Purang</h2><br/>
+<ul><li>Groupon
+</li><li>twitter <span clas>@ppurang</span>
+</li><li>https://github.com/ppurang
+</li></ul></div>
+      </div><div class="content" id="slide-1">
+       <div class="container"><h1>What?</h1><br/>
+<ul><li>Scala stands for <span class="label">SCA</span>lable <span class="label">LA</span>nguage
+</li><li>Static, Strong, Inferred, Structural
+</li><li>Scala compiles down to Java byte-code and runs on the JVM <del>.Net CLR</del>
+</li><li><p>Scala is Object-Functional
+</p><ul><li><span class="label success">Object Oriented</span> : every value is a object
+</li><li><span class="label notice">Functional</span>      : every function is a value
+</li></ul></li></ul></div>
+      </div><div class="content" id="slide-2">
+       <div class="container"><h1>When?</h1><br/>
+<ul><li>2001  Design 
+</li><li>2003  First release (Version 1.0.0-b2 (released on 08-Dec-2003))
+</li><li>2006  Version 2.0.0 (released on 12-Mar-2006)
+</li><li>2008  Version 2.7.0-final (released on 06-Mar-2008)
+</li><li>2009  Version 2.7.4 (april 2009) 
+</li><li>2009  Version 2.7.7 (october 2009)
+</li></ul><p>A <span class="label notice">pleasure</span> ever since
+</p><!-- http://www.artima.com/weblogs/viewpost.jsp?thread=163733 http://www.scala-lang.org/node/156 http://www.scala-lang.org/node/155 -->
+</div>
+      </div><div class="content" id="slide-3">
+       <div class="container"><h1>Who?</h1><ul><li><span class="label important">Creator</span> Martin Odersky (compiler freak, languages)
+</li><li><span class="label success">Typesafe</span>
+</li></ul><p>Contributors 
+</p><ul><li>Martin Odersky, Paul Phillips, Philipp Haller, michelou, Iulian Dragos, Adriaan Moors, 
+</li><li>Aleksandar Pokopec, Miles Sabin, David MacIver,  Daniel Capo Sobral, Stefan Zeiger, Josh Suereth etc.
+</li></ul><p>Users
+</p><ul><li>Twitter, LinkedIn, Foursquare, the Guardian, Morgan Stanley, Credit Suisse, UBS, HSBC and Trafigura
+</li></ul><!-- http://www.quora.com/Startups/What-startups-or-tech-companies-are-using-Scala http://www.scala-lang.org/node/10923 http://www.ohloh.net/p/scala/contributors -->
+</div>
+      </div><div class="content" id="slide-4">
+       <div class="container"><h1>Why?</h1><span class="label success">I</span>
+<ul><li>Less boiler-plate - more power
+</li><li>Statically typed with conciseness of dynamically-typed
+</li><li>Avoid bad usage
+</li><li>REPL
+</li><li>No operators, everything’s a method or a function
+</li><li>Rich collections
+</li><li>Case classes + default values + copy constructors
+</li></ul></div>
+      </div><div class="content" id="slide-5">
+       <div class="container"><h1>Why?</h1><span class="label success">II</span>
+<ul><li>Functions as first class citizens, HOFs, closures, currying
+</li><li>Pattern Matching
+</li><li>Mix-ins
+</li><li>Combinator parsers
+</li><li>Self type annotations and the cake pattern for dependency injection
+</li><li>Extractors 
+</li><li>DSLs
+</li></ul></div>
+      </div><div class="content" id="slide-6">
+       <div class="container"><h1>Why?</h1><span class="label success">III</span>
+<ul><li>Implicits
+</li><li>Existential types  
+</li><li>Abstract types
+</li><li>Concurrency based on Actors
+</li><li>Parallel collections
+</li><li>Higher kinded types
+</li><li>Using scalaz effectively
+</li></ul></div>
+      </div><div class="content" id="slide-7">
+       <div class="container"><h1>Why?</h1><span class="label success">Operational</span>
+<ul><li>JVM baby and it is fast
+</li><li>Use any java library
+</li><li>Scala’s own ecosystem: Lift-json, Akka, Blueeyes, sbt, play, lift, scalaz, etc.
+</li></ul></div>
+      </div><div class="content" id="slide-8">
+       <div class="container"><h1>How?</h1><table>
+<tbody>
+<tr>
+ <td><span class="label">practice</span></td>
+ <td><span class="label">learn</span></td>
+</tr>
+<tr>
+ <td>
+  <ol>
+   <li>REPL</li>
+   <li>Script</li>
+   <li>IDE</li>
+   <li>SBT</li>
+  </ol>
+ </td>
+ <td>
+  <ol>
+   <li>books</li>
+   <li>scala-doc</li>
+   <li>mailing lists</li>
+   <li>stackoverflow</li>
+   <li>blogs</li>
+   <li>user groups</li>
+   <li>videos</li>
+  </ol>
+ </td>
+</tr>
+</tbody>
+</table>
+</div>
+      </div><div class="content" id="slide-9">
+       <div class="container"><h1>Where?</h1><ul><li>Scripts
+</li><li>Write Tests
+</li><li>Libraries
+</li><li>Production
+</li></ul></div>
+      </div><div class="content" id="slide-10">
+       <div class="container"><h1>Thank You</h1><table class="condensed-table">
+ <tbody>
+   <tr>
+     <td>Books</td>
+   </tr>
+   <tr>
+     <td>
+      <ol>
+       <li>2010 <a href="http://www.artima.com/shop/programming_in_scala_2ed">Programming in Scala, Second Edition (Stairway to Heaven)</a><br/><a href="http://www.artima.com/pins1ed/">1st edition available online</a> </li>
+       <li>2008 <a href="http://ofps.oreilly.com/titles/9780596155957/">Programming Scala (readable online)</a></li>
+       <li>2012 <a href="http://www.manning.com/suereth/">Scala in Depth</a></li>
+       <li>2010 <a href="http://www.manning.com/ghosh/">DSLs in Action</a></li>
+       <li>Manning Functional Scala .. announced</li>
+      </ol>
+     </td>
+    </tr>
+  </tbody>
+</table>
+<p>The beginning  </p></div>
+      </div>
+          </div>
+        </div>
+        
+      </body>
+    </html>
