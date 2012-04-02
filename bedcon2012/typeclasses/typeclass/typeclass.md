@@ -87,15 +87,14 @@ PLUG!
     }
 
     //implicits
-    def quickSort1[A](l: List[A])(implicit x: Ord[A]): List[A] = l match {
-      case p :: xs => quickSort1(xs filter (y => x.<(p)(y))) ::: p :: quickSort1(xs filter (y => x.>=(p)(y)))
+    def quickSortDescendingOrder[A](l: List[A])(implicit x: Ord[A]): List[A] = l match {
+      case p :: xs => quickSortDescendingOrder(xs filter (y => x.<(p)(y))) ::: p :: quickSortDescendingOrder(xs filter (y => x.>=(p)(y)))
       case _ => Nil
     }
+
     //context bounds
-    def quickSort2[A: Ord](l: List[A]): List[A] = l match {
-      case p :: xs => quickSort2(xs filter (y => ?[Ord[A]].<(p)(y))) ::: 
-                      p :: 
-                      quickSort2(xs filter (y => ?[Ord[A]].>=(p)(y)))
+    def quickSortAscendingOrder[A: Ord](l: List[A]): List[A] = l match {
+      case p :: xs => quickSortAscendingOrder(xs filter (y => ?[Ord[A]].>=(p)(y))) ::: p :: quickSortAscendingOrder(xs filter (y => ?[Ord[A]].<(p)(y)))
       case _ => Nil
     }
 

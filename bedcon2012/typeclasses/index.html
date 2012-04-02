@@ -7,7 +7,7 @@
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/show.js"></script>
         <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
-        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1333399680676" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1333403056755" type="text/css" rel="stylesheet" />
       <script type="text/javascript"><!--
         window.onload=function() { prettyPrint(); };
       --></script>
@@ -75,15 +75,14 @@ implicit object IntOrd extends Ord[Int] {
 }
 
 //implicits
-def quickSort1[A](l: List[A])(implicit x: Ord[A]): List[A] = l match {
-  case p :: xs =&gt; quickSort1(xs filter (y =&gt; x.&lt;(p)(y))) ::: p :: quickSort1(xs filter (y =&gt; x.&gt;=(p)(y)))
+def quickSortDescendingOrder[A](l: List[A])(implicit x: Ord[A]): List[A] = l match {
+  case p :: xs =&gt; quickSortDescendingOrder(xs filter (y =&gt; x.&lt;(p)(y))) ::: p :: quickSortDescendingOrder(xs filter (y =&gt; x.&gt;=(p)(y)))
   case _ =&gt; Nil
 }
+
 //context bounds
-def quickSort2[A: Ord](l: List[A]): List[A] = l match {
-  case p :: xs =&gt; quickSort2(xs filter (y =&gt; ?[Ord[A]].&lt;(p)(y))) ::: 
-                  p :: 
-                  quickSort2(xs filter (y =&gt; ?[Ord[A]].&gt;=(p)(y)))
+def quickSortAscendingOrder[A: Ord](l: List[A]): List[A] = l match {
+  case p :: xs =&gt; quickSortAscendingOrder(xs filter (y =&gt; ?[Ord[A]].&gt;=(p)(y))) ::: p :: quickSortAscendingOrder(xs filter (y =&gt; ?[Ord[A]].&lt;(p)(y)))
   case _ =&gt; Nil
 }
 </code></pre></div>
@@ -114,6 +113,6 @@ etc. etc.
       </div>
           </div>
         </div>
-        <script type="text/javascript" src="js/custom.js?1333399680952"></script>
+        <script type="text/javascript" src="js/custom.js?1333403057038"></script>
       </body>
     </html>
