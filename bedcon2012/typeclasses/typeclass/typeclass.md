@@ -88,13 +88,17 @@ PLUG!
 
     //implicits
     def quickSortDescendingOrder[A](l: List[A])(implicit x: Ord[A]): List[A] = l match {
-      case p :: xs => quickSortDescendingOrder(xs filter (y => x.<(p)(y))) ::: p :: quickSortDescendingOrder(xs filter (y => x.>=(p)(y)))
+      case p :: xs => quickSortDescendingOrder(xs filter (y => x.<(p)(y))) ::: 
+                      p :: 
+                      quickSortDescendingOrder(xs filter (y => x.>=(p)(y)))
       case _ => Nil
     }
 
     //context bounds
     def quickSortAscendingOrder[A: Ord](l: List[A]): List[A] = l match {
-      case p :: xs => quickSortAscendingOrder(xs filter (y => ?[Ord[A]].>=(p)(y))) ::: p :: quickSortAscendingOrder(xs filter (y => ?[Ord[A]].<(p)(y)))
+      case p :: xs => quickSortAscendingOrder(xs filter (y => ?[Ord[A]].>=(p)(y))) ::: 
+                      p :: 
+                      quickSortAscendingOrder(xs filter (y => ?[Ord[A]].<(p)(y)))
       case _ => Nil
     }
 
