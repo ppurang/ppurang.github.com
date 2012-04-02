@@ -1,0 +1,119 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>Type Classes</title>
+        <link href="assets/css/show.css" type="text/css" rel="stylesheet" />
+        <link href="assets/css/prettify.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="assets/js/show.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1333399680676" type="text/css" rel="stylesheet" />
+      <script type="text/javascript"><!--
+        window.onload=function() { prettyPrint(); };
+      --></script>
+      </head>
+      <body>
+        <div id="slides">
+          <div id="reel">
+            <div class="content" id="slide-0">
+       <div class="container"><h1><img src="typeclass/scala-logo.png"/> Type Classes</h1><p><br/>
+<br/>
+@ppurang
+<br/>
+http://github.com/ppurang
+</p><p><br/>
+PLUG!
+</p><a href="http://www.meetup.com/Scala-Berlin-Brandenburg/">http://www.meetup.com/Scala-Berlin-Brandenburg/</a>
+</div>
+      </div><div class="content" id="slide-1">
+       <div class="container"><h1>What are type classes?</h1><ul><li>Type classes first appeared in Haskell to support ad-hoc polymorphism.
+</li><li>Ad-hoc polymorphism =&gt; A function is defined over many types, acting differently for each one. 
+</li><li>1989: Philip Wadler &amp; Stephen Blott, <nobr>
+<a href="http://homepages.inf.ed.ac.uk/wadler/papers/class/class.ps">How to make ad-hoc polymorphism less ad hoc</a></nobr>
+</li><li>It is all compile time
+</li><li>Retroactive Extension
+</li></ul></div>
+      </div><div class="content" id="slide-2">
+       <div class="container"><h1>’Eq’ in Haskell</h1><pre><code>class Eq a where
+  (==) :: a -&gt; a -&gt; Bool
+  (/=) :: a -&gt; a -&gt; Bool
+
+instance Eq Integer where 
+  x == y =  x `integerEq` y
+
+instance (Eq a) =&gt; Eq (Tree a) where 
+  leaf a         == Leaf b          =  a == b
+  (Branch l1 r1) == (Branch l2 r2)  =  (l1==l2) &amp;&amp; (r1==r2)
+  _              == _               =  False
+</code></pre></div>
+      </div><div class="content" id="slide-3">
+       <div class="container"><h3>Haskell Type Class is a Language Feature</h3><h3>Scala Type Class is a Pattern or Recipe</h3></div>
+      </div><div class="content" id="slide-4">
+       <div class="container"><h1>’Ord’ in Haskell</h1><pre><code>class  (Eq a) =&gt; Ord a  where
+  (&lt;), (&lt;=), (&gt;=), (&gt;)  :: a -&gt; a -&gt; Bool
+  max, min              :: a -&gt; a -&gt; a
+
+quicksort :: Ord a =&gt; [a] -&gt; [a]
+quicksort []     = []
+quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
+    where
+        lesser  = filter (&lt; p) xs
+        greater = filter (&gt;= p) xs
+</code></pre></div>
+      </div><div class="content" id="slide-5">
+       <div class="container"><h1>A possible Ord in Scala</h1><pre><code>type BooleanCompare[A] = A =&gt; A =&gt; Boolean; import Predef.{implicitly =&gt; ?}
+
+trait Ord[A] {
+  def max : A =&gt; A =&gt; A ; def min : A =&gt; A =&gt; A
+  def &lt; : BooleanCompare[A]; def &gt; : BooleanCompare[A]; def &lt;= : BooleanCompare[A]; def &gt;= : BooleanCompare[A]
+}
+
+implicit object IntOrd extends Ord[Int] {
+  def max = a =&gt; b =&gt; if (a &gt; b) a else b; def min = a =&gt; b =&gt; if (a &gt; b) b else a
+  def &lt; = a =&gt; b =&gt; a &lt; b; def &gt; = a =&gt; b =&gt; a &gt; b
+  def &lt;= = a =&gt; b =&gt; a &lt;= b; def &gt;= = a =&gt; b =&gt; a &gt;= b
+}
+
+//implicits
+def quickSort1[A](l: List[A])(implicit x: Ord[A]): List[A] = l match {
+  case p :: xs =&gt; quickSort1(xs filter (y =&gt; x.&lt;(p)(y))) ::: p :: quickSort1(xs filter (y =&gt; x.&gt;=(p)(y)))
+  case _ =&gt; Nil
+}
+//context bounds
+def quickSort2[A: Ord](l: List[A]): List[A] = l match {
+  case p :: xs =&gt; quickSort2(xs filter (y =&gt; ?[Ord[A]].&lt;(p)(y))) ::: 
+                  p :: 
+                  quickSort2(xs filter (y =&gt; ?[Ord[A]].&gt;=(p)(y)))
+  case _ =&gt; Nil
+}
+</code></pre></div>
+      </div><div class="content" id="slide-6">
+       <div class="container"><ul><li>Scala allows us to enhance a type by declaring implicit conversions to a newer wrapper type <nobr>(Pimp my class pattern)</nobr>
+</li><li>Scala allows us to define type classes and then make them available unintrusively using implicits (Think Defaults)
+</li><li>But that default can be overriden if needed by passing another implementation.
+</li></ul></div>
+      </div><div class="content" id="slide-7">
+       <div class="container"><h1>Tip of the Iceberg</h1><pre><code>type Show[A] = A =&gt; String
+
+type Read[A] = String =&gt; A
+
+etc. etc.
+
+</code></pre><p>For more on type classes and other functional goodness:
+</p><br/>
+<a href="https://github.com/scalaz/scalaz">https://github.com/scalaz/scalaz</a>
+</div>
+      </div><div class="content" id="slide-8">
+       <div class="container"><h1>Thank You</h1><br>
+<h2>@ppurang</h2><br/>
+<h2>http://github.com/ppurang</h2><br>
+<h3>Further Reads</h3><a href="https://gist.github.com/2245812">https://gist.github.com/2245812</a>
+<br>
+<h3>PLUG again!</h3><a href="http://www.meetup.com/Scala-Berlin-Brandenburg/">http://www.meetup.com/Scala-Berlin-Brandenburg/</a>
+</div>
+      </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="js/custom.js?1333399680952"></script>
+      </body>
+    </html>
