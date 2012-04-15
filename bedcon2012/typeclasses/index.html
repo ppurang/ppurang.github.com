@@ -7,7 +7,7 @@
         <script type="text/javascript" src="assets/js/jquery.min.js"></script>
         <script type="text/javascript" src="assets/js/show.js"></script>
         <script type="text/javascript" src="assets/js/prettify/prettify.js"></script>
-        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1333403544997" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="assets/js/prettify/lang-apollo.js"></script><script type="text/javascript" src="assets/js/prettify/lang-css.js"></script><script type="text/javascript" src="assets/js/prettify/lang-hs.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lisp.js"></script><script type="text/javascript" src="assets/js/prettify/lang-lua.js"></script><script type="text/javascript" src="assets/js/prettify/lang-ml.js"></script><script type="text/javascript" src="assets/js/prettify/lang-proto.js"></script><script type="text/javascript" src="assets/js/prettify/lang-scala.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-sql.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vb.js"></script><script type="text/javascript" src="assets/js/prettify/lang-vhdl.js"></script><script type="text/javascript" src="assets/js/prettify/lang-wiki.js"></script><script type="text/javascript" src="assets/js/prettify/lang-yaml.js"></script><link href="css/custom.css?1334515520720" type="text/css" rel="stylesheet" />
       <script type="text/javascript"><!--
         window.onload=function() { prettyPrint(); };
       --></script>
@@ -26,6 +26,14 @@ PLUG!
 </p><a href="http://www.meetup.com/Scala-Berlin-Brandenburg/">http://www.meetup.com/Scala-Berlin-Brandenburg/</a>
 </div>
       </div><div class="content" id="slide-1">
+       <div class="container"><h1>Demo on the console</h1><br/>
+<ul><li>The demo script can be found here
+<a href="https://gist.github.com/2251556">Bedcon 2012 Presentation Script</a>
+<br/>
+</li><li>It just needs a scala console to run.
+<a href="https://gist.github.com/2251556#gistcomment-206703">How to run the script?</a>
+</li></ul></div>
+      </div><div class="content" id="slide-2">
        <div class="container"><h1>What are type classes?</h1><ul><li>Type classes first appeared in Haskell to support ad-hoc polymorphism.
 </li><li>Ad-hoc polymorphism =&gt; A function is defined over many types, acting differently for each one. 
 </li><li>1989: Philip Wadler &amp; Stephen Blott, <nobr>
@@ -33,7 +41,7 @@ PLUG!
 </li><li>It is all compile time
 </li><li>Retroactive Extension
 </li></ul></div>
-      </div><div class="content" id="slide-2">
+      </div><div class="content" id="slide-3">
        <div class="container"><h1>’Eq’ in Haskell</h1><pre><code>class Eq a where
   (==) :: a -&gt; a -&gt; Bool
   (/=) :: a -&gt; a -&gt; Bool
@@ -46,9 +54,9 @@ instance (Eq a) =&gt; Eq (Tree a) where
   (Branch l1 r1) == (Branch l2 r2)  =  (l1==l2) &amp;&amp; (r1==r2)
   _              == _               =  False
 </code></pre></div>
-      </div><div class="content" id="slide-3">
-       <div class="container"><h3>Haskell Type Class is a Language Feature</h3><h3>Scala Type Class is a Pattern or Recipe</h3></div>
       </div><div class="content" id="slide-4">
+       <div class="container"><h3>Haskell Type Class is a Language Feature</h3><h3>Scala Type Class is a Pattern or Recipe</h3></div>
+      </div><div class="content" id="slide-5">
        <div class="container"><h1>’Ord’ in Haskell</h1><pre><code>class  (Eq a) =&gt; Ord a  where
   (&lt;), (&lt;=), (&gt;=), (&gt;)  :: a -&gt; a -&gt; Bool
   max, min              :: a -&gt; a -&gt; a
@@ -60,7 +68,7 @@ quicksort (p:xs) = (quicksort lesser) ++ [p] ++ (quicksort greater)
         lesser  = filter (&lt; p) xs
         greater = filter (&gt;= p) xs
 </code></pre></div>
-      </div><div class="content" id="slide-5">
+      </div><div class="content" id="slide-6">
        <div class="container"><h1>A possible Ord in Scala</h1><pre><code>type BooleanCompare[A] = A =&gt; A =&gt; Boolean; import Predef.{implicitly =&gt; ?}
 
 trait Ord[A] {
@@ -90,12 +98,12 @@ def quickSortAscendingOrder[A: Ord](l: List[A]): List[A] = l match {
   case _ =&gt; Nil
 }
 </code></pre></div>
-      </div><div class="content" id="slide-6">
+      </div><div class="content" id="slide-7">
        <div class="container"><ul><li>Scala allows us to enhance a type by declaring implicit conversions to a newer wrapper type <nobr>(Pimp my class pattern)</nobr>
 </li><li>Scala allows us to define type classes and then make them available unintrusively using implicits (Think Defaults)
 </li><li>But that default can be overriden if needed by passing another implementation.
 </li></ul></div>
-      </div><div class="content" id="slide-7">
+      </div><div class="content" id="slide-8">
        <div class="container"><h1>Tip of the Iceberg</h1><pre><code>type Show[A] = A =&gt; String
 
 type Read[A] = String =&gt; A
@@ -106,17 +114,18 @@ etc. etc.
 </p><br/>
 <a href="https://github.com/scalaz/scalaz">https://github.com/scalaz/scalaz</a>
 </div>
-      </div><div class="content" id="slide-8">
+      </div><div class="content" id="slide-9">
        <div class="container"><h1>Thank You</h1><br>
 <h2>@ppurang</h2><br/>
 <h2>http://github.com/ppurang</h2><br>
 <h3>Further Reads</h3><a href="https://gist.github.com/2245812">https://gist.github.com/2245812</a>
+<br>
 <br>
 <h3>PLUG again!</h3><a href="http://www.meetup.com/Scala-Berlin-Brandenburg/">http://www.meetup.com/Scala-Berlin-Brandenburg/</a>
 </div>
       </div>
           </div>
         </div>
-        <script type="text/javascript" src="js/custom.js?1333403545267"></script>
+        <script type="text/javascript" src="js/custom.js?1334515521012"></script>
       </body>
     </html>

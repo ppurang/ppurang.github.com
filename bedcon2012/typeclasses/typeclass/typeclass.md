@@ -14,6 +14,19 @@ PLUG!
 
 !SLIDE
 
+# Demo on the console
+
+<br/>
+
++ The demo script can be found here
+<a href="https://gist.github.com/2251556">Bedcon 2012 Presentation Script</a>
+<br/>
++ It just needs a scala console to run.
+<a href="https://gist.github.com/2251556#gistcomment-206703">How to run the script?</a>
+
+
+!SLIDE
+
 # What are type classes?
 
 + Type classes first appeared in Haskell to support ad-hoc polymorphism.
@@ -145,6 +158,8 @@ For more on type classes and other functional goodness:
 
 ### Further Reads
 <a href="https://gist.github.com/2245812">https://gist.github.com/2245812</a>
+
+<br>
 
 <br>
 
